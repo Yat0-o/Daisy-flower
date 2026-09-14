@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Margarida da Paz — história, lendas e significados</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-top:#EEF2E2;
+    --bg-bottom:#F8F1DF;
+    --paper:#FFFDF7;
+    --ink:#3A4432;
+    --ink-soft:#71806A;
+    --leaf:#5F7A50;
+    --leaf-deep:#44603A;
+    --gold:#E3AE3B;
+    --gold-soft:#F1E0AC;
+    --pink:#DFA3AC;
+    --lilac:#B7A4D3;
+    --sky:#A2C2D6;
+    --red:#C97666;
+    --line:#E4DAC0;
+    --ease:cubic-bezier(.4,0,.2,1);
+    --dur:.5s;
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    color:var(--ink);
+    font-family:'Nunito', sans-serif;
+    line-height:1.7;
+    background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-bottom) 45%,var(--bg-top) 100%);
+    overflow-x:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    color:var(--leaf-deep);
+    margin:0 0 10px;
+    line-height:1.15;
+  }
+  section{
+    max-width:620px;
+    margin:0 auto;
+    padding:56px 22px;
+    position:relative;
+  }
+  p{ margin:0 0 16px; max-width:64ch; }
+  .lede{ font-size:1.06rem; color:var(--ink); }
+  .eyebrow{
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    letter-spacing:0.02em;
+    margin-bottom:2px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform:translateY(16px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+  .reveal.visible{ opacity:1; transform:translateY(0); }
+
+  /* ---------- scroll progress vine ---------- */
+  .vine-track{
+    position:fixed;
+    left:0; top:0;
+    width:4px; height:100%;
+    background:var(--line);
+    z-index:40;
+    pointer-events:none;
+  }
+  .vine-fill{
+    position:absolute;
+    left:0; top:0;
+    width:100%; height:0%;
+    background:linear-gradient(180deg, var(--gold), var(--leaf));
+    transition:height .1s linear;
+  }
+
+  /* ---------- ambient petals (whole page) ---------- */
+  .petal-field{ position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .petal-field svg{ position:absolute; opacity:.4; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    text-align:center;
+    padding:72px 24px 40px;
+    min-height:78vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .hero h1{
+    font-size:clamp(2.6rem, 11vw, 4.2rem);
+    margin-bottom:6px;
+  }
+  .hero .subtitle{
+    font-size:1rem;
+    color:var(--ink-soft);
+    max-width:38ch;
+    margin:0 auto 34px;
+  }
+  .hero-daisy{ width:min(48vw, 190px); height:auto; animation:breathe 6s ease-in-out infinite; }
+  @keyframes breathe{
+    0%,100%{ transform:scale(1) rotate(0deg); }
+    50%{ transform:scale(1.045) rotate(1.5deg); }
+  }
+  .scroll-cue{
+    margin-top:38px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+  }
+  .scroll-cue span{
+    width:1px; height:26px; background:var(--ink-soft);
+    animation:pulse-line 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse-line{ 0%,100%{ opacity:.25; } 50%{ opacity:.8; } }
+
+  .petal-decor{ fill:var(--paper); stroke:#DCD2B4; stroke-width:1; transform-box:view-box; }
+
+  /* ---------- cards / dividers ---------- */
+  .card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:8px 24px 4px;
+  }
+
+  /* ---------- day/night toggle ---------- */
+  .toggle-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:14px;
+    margin-top:22px;
+  }
+  .dn-daisy{ width:150px; height:150px; }
+  .dn-daisy .petal-decor{ transition:transform .9s var(--ease), opacity .9s ease; transform-origin:50px 50px; }
+  .dn-daisy.night .petal-decor{ transform:scale(0.32); opacity:.55; }
+  .dn-scene{
+    width:100%; max-width:220px; height:150px;
+    border-radius:16px;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(180deg,#FCEFC4,#F7E3A6);
+    transition:background 1s ease;
+  }
+  .dn-scene.night{ background:linear-gradient(180deg,#3B4A63,#25314A); }
+  .dn-daisy .center-c{ transition:fill 1s ease; }
+  .dn-daisy.night .center-c{ fill:#F1E0AC; }
+  .toggle-btn{
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:0.92rem;
+    padding:10px 22px;
+    border-radius:999px;
+    border:1px solid var(--leaf);
+    background:transparent;
+    color:var(--leaf-deep);
+    cursor:pointer;
+    transition:background .3s ease, color .3s ease;
+  }
+  .toggle-btn:hover{ background:var(--gold-soft); }
+  .dn-caption{ font-size:0.92rem; color:var(--ink-soft); text-align:center; max-width:32ch; min-height:2.6em; transition:opacity .25s ease; }
+
+  /* ---------- legends ---------- */
+  .legend-item{
+    display:flex;
+    gap:16px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .legend-item.visible{ opacity:1; transform:translateY(0); }
+  .legend-item:first-of-type{ border-top:none; }
+  .legend-era{
+    flex:0 0 auto;
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:1.15rem;
+    color:var(--leaf);
+    width:118px;
+  }
+  .legend-text p{ margin:0; font-size:0.97rem; }
+
+  /* ---------- color swatches ---------- */
+  .swatches{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin:22px 0 20px;
+  }
+  .swatch{
+    width:42px; height:42px;
+    border-radius:50%;
+    border:2px solid rgba(255,255,255,0.7);
+    box-shadow:0 0 0 1px var(--line);
+    cursor:pointer;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease);
+    padding:0;
+  }
+  .swatch:hover{ transform:translateY(-3px); }
+  .swatch[aria-pressed="true"]{ box-shadow:0 0 0 3px var(--leaf); transform:translateY(-3px); }
+  .color-panel{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px 22px;
+    min-height:104px;
+    text-align:center;
+    transition:opacity .2s ease;
+  }
+  .color-panel h3{ margin:0 0 6px; font-size:1.3rem; }
+  .color-panel p{ margin:0; font-size:0.95rem; color:var(--ink-soft); max-width:100%; }
+
+  /* ---------- culture list ---------- */
+  .culture-item{
+    margin-bottom:22px;
+    opacity:0;
+    transform:translateY(14px);
+    transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .culture-item.visible{ opacity:1; transform:translateY(0); }
+  .culture-item h3{ font-size:1.35rem; margin-bottom:4px; }
+  .culture-item p{ font-size:0.97rem; }
+
+  /* ---------- petal game ---------- */
+  .game-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:18px;
+    margin-top:10px;
+  }
+  .game-daisy{ width:min(70vw, 280px); height:auto; touch-action:manipulation; overflow:visible; }
+  .petal-game{
+    cursor:pointer;
+    fill:var(--paper);
+    stroke:#DCD2B4;
+    stroke-width:2;
+    transform-box:view-box;
+    transform-origin:150px 150px;
+    transition:transform .55s var(--ease), opacity .55s ease, fill .2s ease;
+  }
+  .petal-game:hover{ fill:#FFF9E8; }
+  .petal-game:focus-visible{ outline:2px solid var(--leaf); outline-offset:2px; }
+  .petal-game.plucked{
+    opacity:0;
+    transform:translateY(-46px) scale(0.35) rotate(14deg);
+    pointer-events:none;
+  }
+  .words-revealed{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    justify-content:center;
+    min-height:38px;
+    max-width:340px;
+  }
+  .word-chip{
+    font-family:'Caveat', cursive;
+    font-weight:700;
+    font-size:1.1rem;
+    color:var(--leaf-deep);
+    background:var(--gold-soft);
+    border-radius:999px;
+    padding:5px 16px;
+    opacity:0;
+    animation:chip-in .5s var(--ease) forwards;
+  }
+  @keyframes chip-in{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
+  .game-hint{ font-size:0.88rem; color:var(--ink-soft); text-align:center; }
+  .game-closing{
+    text-align:center;
+    font-size:1rem;
+    max-width:36ch;
+    opacity:0;
+    max-height:0;
+    overflow:hidden;
+    transition:opacity .6s ease;
+  }
+  .game-closing.show{ opacity:1; max-height:200px; margin-top:6px; }
+  .reset-btn{
+    font-family:'Nunito', sans-serif;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    text-decoration:underline;
+    cursor:pointer;
+    padding:4px;
+  }
+
+  /* ---------- closing ---------- */
+  .closing{
+    text-align:center;
+    padding-bottom:90px;
+  }
+  .closing h2{ font-size:2rem; }
+  .closing p{ margin:0 auto; }
+
+  @keyframes celebrate-fall{
+    0%{ transform:translateY(0) rotate(0deg); opacity:0; }
+    12%{ opacity:.85; }
+    100%{ transform:translateY(70vh) rotate(220deg); opacity:0; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .hero-daisy{ animation:none; }
+    .scroll-cue span{ animation:none; }
+    .petal-field{ display:none; }
+    .vine-fill{ transition:none; }
+    .reveal, .legend-item, .culture-item{ opacity:1; transform:none; transition:none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="vine-track"><div class="vine-fill" id="vineFill"></div></div>
+  <div class="petal-field" id="petalField"></div>
+
+  <section class="hero">
+    <p class="eyebrow">uma flor, muitas histórias</p>
+    <h1>A Margarida<br>da Paz</h1>
+    <p class="subtitle">A história, as lendas e os significados por trás de uma das flores mais simples e mais poderosas do mundo.</p>
+    <svg class="hero-daisy" id="heroSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g id="heroPetals"></g>
+      <circle cx="50" cy="50" r="14" fill="#E3AE3B"/>
+    </svg>
+    <div class="scroll-cue"><span></span>role para descobrir</div>
+  </section>
+
+  <section class="reveal" id="significado">
+    <p class="eyebrow">origem</p>
+    <h2>O olho do dia</h2>
+    <p class="lede">Poucas flores carregam um significado tão constante quanto a margarida. Ela simboliza paz, inocência e novos começos, e aparece, quase sem mudar de sentido, em culturas separadas por milênios e continentes.</p>
+    <p>Seu nome em inglês, <em>daisy</em>, vem do termo em inglês antigo <em>dæges ēage</em>, que significa "o olho do dia". A razão é simples. Essa flor abre as pétalas ao amanhecer e as fecha ao entardecer, seguindo o sol como um pequeno relógio vivo espalhado pela grama.</p>
+
+    <div class="toggle-wrap">
+      <div class="dn-scene" id="dnScene">
+        <svg class="dn-daisy" id="dnSvg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <g id="dnPetals"></g>
+          <circle class="center-c" cx="50" cy="50" r="14" fill="#E3AE3B"/>
+        </svg>
+      </div>
+      <button class="toggle-btn" id="dnToggle" aria-pressed="false">Ver à noite</button>
+      <p class="dn-caption" id="dnCaption">De dia, a margarida abre por completo para receber luz e visitas de polinizadores.</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="lendas">
+    <p class="eyebrow">mitos e folclore</p>
+    <h2>Lendas que atravessaram o tempo</h2>
+    <p>Muito antes de qualquer significado moderno, a margarida já era personagem de mitos em diferentes continentes, quase sempre relacionada à vida, ao cuidado e à transformação.</p>
+    <div class="card">
+      <div class="legend-item">
+        <div class="legend-era">Antiguidade</div>
+        <div class="legend-text"><p>Em rituais do Egito e da Grécia antigos, a margarida era associada à fertilidade e à sorte, e aparecia em oferendas e coroas de flores.</p></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-era">Mito romano</div>
+        <div class="legend-text"><p>Perseguida pelo deus dos jardins e das estações, Vertumno, a ninfa Bélides teria se transformado em margarida para escapar dele. É dessa história que vem o nome científico do gênero, <em>Bellis</em>, e também os sentidos de transformação e resistência discreta que a flor carrega até hoje.</p></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-era">Mitologia nórdica</div>
+        <div class="legend-text"><p>Consagrada a Freyja, deusa do amor e da fertilidade, a margarida também passou a representar o nascimento e os novos começos. Em algumas tradições nórdicas, ainda é oferecida a mães que acabaram de dar à luz.</p></div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-era">Folclore europeu</div>
+        <div class="legend-text"><p>Uma antiga lenda popular conta que, diante da perda de uma criança, margaridas nasciam da terra como consolo. Por isso a flor ficou ligada à inocência e ao acolhimento do luto.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal" id="cores">
+    <p class="eyebrow">variações</p>
+    <h2>O significado de cada cor</h2>
+    <p>A margarida comum nasce branca, com o centro dourado. Mas variações e tingimentos deram a ela um pequeno dicionário de cores, cada uma com um recado diferente. Toque em uma para descobrir o que ela significa.</p>
+    <div class="swatches" id="swatches" role="group" aria-label="Cores da margarida"></div>
+    <div class="color-panel" id="colorPanel">
+      <h3 id="colorName">Branca</h3>
+      <p id="colorMeaning">Pureza, inocência e verdade. É a cor mais tradicional da flor e também a mais ligada à paz.</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="cultura">
+    <p class="eyebrow">arte e tradição</p>
+    <h2>Cultura, poesia e brincadeiras</h2>
+
+    <div class="culture-item">
+      <h3>O segredo dos vitorianos</h3>
+      <p>Na linguagem das flores do século XIX, oferecer um buquê de margaridas era uma forma discreta de dizer que um segredo estava guardado. Por isso a flor virou sinônimo de lealdade e discrição.</p>
+    </div>
+    <div class="culture-item">
+      <h3>Shakespeare e Wordsworth</h3>
+      <p>Em <em>Hamlet</em>, Ofélia distribui flores carregadas de significado, e uma delas é a margarida, que estudiosos costumam ler como um sinal da inocência que ela perdeu. Já o poeta inglês William Wordsworth dedicou mais de um poema à flor, elogiando sua beleza simples e a persistência de florescer estação após estação.</p>
+    </div>
+    <div class="culture-item">
+      <h3>Bem-me-quer, mal-me-quer</h3>
+      <p>A brincadeira de arrancar as pétalas uma a uma, tentando adivinhar se um amor é correspondido, vem do francês <em>effeuiller la marguerite</em>, que quer dizer desfolhar a margarida. É uma tradição popular espalhada pela Europa há séculos.</p>
+    </div>
+    <div class="culture-item">
+      <h3>Coroas, colares e chás</h3>
+      <p>Tecer coroas e colares de margaridas é uma brincadeira de infância quase universal, quase sempre lembrada com carinho. As folhas da planta também têm uso popular. Aparecem em saladas, em chás caseiros contra tosse e inflamação, e até direto na pele para cuidar de pequenos ferimentos.</p>
+    </div>
+  </section>
+
+  <section class="reveal" id="paz">
+    <p class="eyebrow">o que conecta tudo</p>
+    <h2>A flor que virou símbolo de paz</h2>
+    <p class="lede">Foi no século XX que a margarida ganhou o significado mais marcante para os dias de hoje.</p>
+    <p>Nos anos 1960, em meio à Guerra Fria e à Guerra do Vietnã, jovens passaram a usar flores como resposta à violência. Entregavam margaridas a soldados e as usavam no cabelo e nas roupas durante as manifestações contra a guerra.</p>
+    <p>O poeta Allen Ginsberg criou a expressão <em>flower power</em>, o poder das flores, ao propor que os manifestantes levassem flores aos protestos em vez de qualquer tipo de confronto. O movimento hippie abraçou a ideia, e a margarida, simples e disponível em qualquer campo, acabou se tornando uma das flores mais ligadas a esse gesto coletivo de paz.</p>
+    <p>Da lenda que consolava o luto, passando pela ninfa que preferiu se transformar a enfrentar a violência, até o gesto de oferecer flores no lugar de armas, a margarida carrega há séculos uma mensagem parecida. Ela mostra que ainda hoje é possível responder ao mundo com delicadeza.</p>
+  </section>
+
+  <section class="reveal" id="jogo">
+    <p class="eyebrow">uma brincadeira, reinventada</p>
+    <h2>Desfolhe a margarida</h2>
+    <p>A brincadeira tradicional pergunta bem-me-quer, mal-me-quer. Aqui, cada pétala revela uma palavra sobre paz. Toque nelas, uma de cada vez.</p>
+    <div class="game-wrap">
+      <svg class="game-daisy" id="gameSvg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <g id="gamePetals"></g>
+        <circle cx="150" cy="150" r="40" fill="#E3AE3B"/>
+      </svg>
+      <p class="game-hint" id="gameHint">8 pétalas, toque em cada uma</p>
+      <div class="words-revealed" id="wordsRevealed"></div>
+      <p class="game-closing" id="gameClosing">Leve estas palavras com você. A paz também se constrói aos poucos, pétala por pétala.</p>
+      <button class="reset-btn" id="resetGame" style="display:none;">recomeçar</button>
+    </div>
+  </section>
+
+  <section class="closing reveal">
+    <h2>Uma flor, um convite</h2>
+    <p>Na próxima vez que você encontrar uma margarida, seja de verdade ou de papel, lembre do tanto que ela já representou ao longo do tempo. Inocência, transformação, consolo, lealdade e, acima de tudo, paz.</p>
+  </section>
+
+<script>
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var NS = 'http://www.w3.org/2000/svg';
+
+  // ---------- shared petal geometry ----------
+  // every petal is one path anchored at the flower's own center, so rotating
+  // it around that same center is always correct, no matter the angle.
+  function petalPath(cx, cy, tipY, c1y, c2y, w1, w2){
+    return 'M'+cx+','+cy+
+      ' C'+(cx-w1)+','+c1y+' '+(cx-w2)+','+c2y+' '+cx+','+tipY+
+      ' C'+(cx+w2)+','+c2y+' '+(cx+w1)+','+c1y+' '+cx+','+cy+' Z';
+  }
+
+  function buildDaisy(groupEl, p, className){
+    var d = petalPath(p.cx, p.cy, p.tipY, p.c1y, p.c2y, p.w1, p.w2);
+    var petals = [];
+    for(var i=0;i<p.count;i++){
+      var angle = i * (360/p.count);
+      var g = document.createElementNS(NS,'g');
+      g.setAttribute('transform','rotate('+angle+' '+p.cx+' '+p.cy+')');
+      var path = document.createElementNS(NS,'path');
+      path.setAttribute('d', d);
+      path.setAttribute('class', className);
+      g.appendChild(path);
+      groupEl.appendChild(g);
+      petals.push(path);
+    }
+    return petals;
+  }
+
+  var SMALL = { cx:50, cy:50, tipY:16, c1y:40, c2y:27, w1:4, w2:6, count:16 };
+  var GAME  = { cx:150, cy:150, tipY:50, c1y:110, c2y:75, w1:13, w2:18, count:8 };
+
+  buildDaisy(document.getElementById('heroPetals'), SMALL, 'petal-decor');
+  buildDaisy(document.getElementById('dnPetals'), SMALL, 'petal-decor');
+  var gamePetals = buildDaisy(document.getElementById('gamePetals'), GAME, 'petal-game');
+
+  // ---------- scroll reveal ----------
+  if(!reduceMotion){
+    var revealEls = document.querySelectorAll('.reveal, .legend-item, .culture-item');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal, .legend-item, .culture-item').forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // ---------- scroll progress vine ----------
+  var vineFill = document.getElementById('vineFill');
+  var ticking = false;
+  function updateVine(){
+    var doc = document.documentElement;
+    var scrollTop = doc.scrollTop || document.body.scrollTop;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? (scrollTop / max) * 100 : 0;
+    vineFill.style.height = pct + '%';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ window.requestAnimationFrame(updateVine); ticking = true; }
+  }, { passive:true });
+  updateVine();
+
+  // ---------- ambient floating petals (continuous, whole page) ----------
+  if(!reduceMotion){
+    var field = document.getElementById('petalField');
+    var petalColors = ['#FFFDF7', '#F1E0AC', '#EFF2E2'];
+    for(var i=0;i<10;i++){
+      var s = document.createElementNS(NS,'svg');
+      s.setAttribute('width','16'); s.setAttribute('height','28'); s.setAttribute('viewBox','0 0 16 28');
+      s.innerHTML = '<ellipse cx="8" cy="14" rx="7" ry="13" fill="'+petalColors[i % petalColors.length]+'" stroke="#DCD2B4" stroke-width="1"/>';
+      var left = Math.random()*100;
+      var delay = Math.random()*16;
+      var duration = 16 + Math.random()*12;
+      s.style.left = left+'%';
+      s.style.top = '-8%';
+      s.style.animation = 'drift '+duration+'s linear '+delay+'s infinite';
+      field.appendChild(s);
+    }
+    // the field is position:fixed, so this loop keeps drifting across
+    // whatever the visible viewport is, no matter how far the page is scrolled
+    var styleTag = document.createElement('style');
+    styleTag.textContent = '@keyframes drift{0%{transform:translateY(0) rotate(0deg);opacity:0;}10%{opacity:.4;}90%{opacity:.4;}100%{transform:translateY(115vh) rotate(200deg);opacity:0;}}';
+    document.head.appendChild(styleTag);
+  }
+
+  // ---------- day / night toggle ----------
+  var dnToggle = document.getElementById('dnToggle');
+  var dnSvg = document.getElementById('dnSvg');
+  var dnScene = document.getElementById('dnScene');
+  var dnCaption = document.getElementById('dnCaption');
+  var isNight = false;
+  var DAY_TEXT = 'De dia, a margarida abre por completo para receber luz e visitas de polinizadores.';
+  var NIGHT_TEXT = 'À noite, as pétalas se fecham ao redor do centro dourado e o protegem até o sol voltar.';
+  dnToggle.addEventListener('click', function(){
+    isNight = !isNight;
+    dnSvg.classList.toggle('night', isNight);
+    dnScene.classList.toggle('night', isNight);
+    dnToggle.setAttribute('aria-pressed', String(isNight));
+    dnToggle.textContent = isNight ? 'Ver de dia' : 'Ver à noite';
+    dnCaption.style.opacity = '0';
+    setTimeout(function(){
+      dnCaption.textContent = isNight ? NIGHT_TEXT : DAY_TEXT;
+      dnCaption.style.opacity = '1';
+    }, 200);
+  });
+
+  // ---------- color swatches ----------
+  var colors = [
+    { name:'Branca', hex:'#FFFDF7', border:'#DCD2B4', meaning:'Pureza, inocência e verdade. É a cor mais tradicional da flor e também a mais ligada à paz.' },
+    { name:'Amarela', hex:'#E3AE3B', border:'#C99A2E', meaning:'Alegria, otimismo e vitalidade. É a cor do centro que deu à flor o apelido de olho do dia.' },
+    { name:'Rosa', hex:'#DFA3AC', border:'#C98894', meaning:'Gratidão, ternura e admiração. Muito usada em buquês para agradecer alguém.' },
+    { name:'Vermelha', hex:'#C97666', border:'#B25F4F', meaning:'Paixão e amor intenso. É a variação menos tradicional da margarida, e também a mais ousada.' },
+    { name:'Lilás', hex:'#B7A4D3', border:'#9C87BE', meaning:'Delicadeza e a mensagem estou pensando em você. Uma boa escolha para lembranças afetuosas.' },
+    { name:'Azul', hex:'#A2C2D6', border:'#84A9C0', meaning:'Calma, serenidade e confiança. Como essa cor não existe naturalmente na espécie, ela costuma vir de tingimento.' }
+  ];
+  var swatchWrap = document.getElementById('swatches');
+  var colorPanel = document.getElementById('colorPanel');
+  var colorName = document.getElementById('colorName');
+  var colorMeaning = document.getElementById('colorMeaning');
+  colors.forEach(function(c, idx){
+    var b = document.createElement('button');
+    b.className = 'swatch';
+    b.style.background = c.hex;
+    b.style.borderColor = c.border;
+    b.setAttribute('aria-label', 'Margarida cor ' + c.name);
+    b.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+    b.addEventListener('click', function(){
+      Array.from(swatchWrap.children).forEach(function(el){ el.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      colorPanel.style.opacity = '0';
+      setTimeout(function(){
+        colorName.textContent = c.name;
+        colorMeaning.textContent = c.meaning;
+        colorPanel.style.opacity = '1';
+      }, 180);
+    });
+    swatchWrap.appendChild(b);
+  });
+
+  // ---------- petal plucking game ----------
+  var words = ['Paz','Empatia','Escuta','Coragem','Gentileza','Diálogo','Respeito','Esperança'];
+  gamePetals.forEach(function(petal, i){
+    petal.setAttribute('data-word', words[i]);
+    petal.setAttribute('tabindex', '0');
+    petal.setAttribute('role', 'button');
+    petal.setAttribute('aria-label', 'Pétala: revelar palavra ' + words[i]);
+  });
+
+  var wordsRevealed = document.getElementById('wordsRevealed');
+  var gameClosing = document.getElementById('gameClosing');
+  var gameHint = document.getElementById('gameHint');
+  var resetBtn = document.getElementById('resetGame');
+  var gameSvg = document.getElementById('gameSvg');
+  var pluckedCount = 0;
+
+  function spawnCelebration(){
+    if(reduceMotion) return;
+    var rect = gameSvg.getBoundingClientRect();
+    var layer = document.getElementById('petalField');
+    var celebColors = ['#FFFDF7', '#F1E0AC', '#DFA3AC'];
+    for(var i=0;i<8;i++){
+      var s = document.createElementNS(NS,'svg');
+      s.setAttribute('width','14'); s.setAttribute('height','24'); s.setAttribute('viewBox','0 0 16 28');
+      s.innerHTML = '<ellipse cx="8" cy="14" rx="7" ry="13" fill="'+celebColors[i % celebColors.length]+'" stroke="#DCD2B4" stroke-width="1"/>';
+      var startLeft = rect.left + rect.width/2 + (Math.random()*140 - 70);
+      var startTop = rect.top + rect.height/2;
+      s.style.position = 'absolute';
+      s.style.left = startLeft + 'px';
+      s.style.top = startTop + 'px';
+      s.style.animation = 'celebrate-fall ' + (1.6 + Math.random()) + 's ease-in forwards';
+      s.style.animationDelay = (Math.random()*0.3) + 's';
+      layer.appendChild(s);
+      (function(el){
+        el.addEventListener('animationend', function(){ el.remove(); });
+      })(s);
+    }
+  }
+
+  function pluck(petal){
+    if(petal.classList.contains('plucked')) return;
+    petal.classList.add('plucked');
+    var chip = document.createElement('span');
+    chip.className = 'word-chip';
+    chip.textContent = petal.getAttribute('data-word');
+    wordsRevealed.appendChild(chip);
+    pluckedCount++;
+    gameHint.textContent = pluckedCount + ' de ' + gamePetals.length + ' pétalas';
+    if(pluckedCount === gamePetals.length){
+      setTimeout(function(){
+        gameClosing.classList.add('show');
+        resetBtn.style.display = 'inline-block';
+        spawnCelebration();
+      }, 400);
+    }
+  }
+
+  gamePetals.forEach(function(petal){
+    petal.addEventListener('click', function(){ pluck(petal); });
+    petal.addEventListener('keydown', function(e){
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pluck(petal); }
+    });
+  });
+
+  resetBtn.addEventListener('click', function(){
+    gamePetals.forEach(function(petal){ petal.classList.remove('plucked'); });
+    wordsRevealed.innerHTML = '';
+    gameClosing.classList.remove('show');
+    resetBtn.style.display = 'none';
+    pluckedCount = 0;
+    gameHint.textContent = gamePetals.length + ' pétalas, toque em cada uma';
+  });
+</script>
+</body>
+</html>
